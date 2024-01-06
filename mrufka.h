@@ -14,3 +14,4 @@ typedef struct{
 
 simulation generate_grid (int width, int height);
 void print_grid(simulation simulation);
+coordinates change_coordinates (coordinates coordinates, int direction);

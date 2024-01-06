@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "mrufka.h"
 
-
+char* ant_obejct[][4] = {{"▲", "▶", "▼", "◀"},{"△", "▷", "▽", "◁"}};
 
 simulation generate_grid (int width, int height){
     simulation new_simulation = malloc(sizeof(simulation));
@@ -36,7 +36,10 @@ void print_grid(simulation simulation){
     for (int i = 0;i<simulation->size.y;i++){
         printf("│");
         for (int j = 0;j<simulation->size.x;j++){
-            if (simulation->grid[i][j] == 0)
+            if (i == simulation->current_pos.y && j == simulation->current_pos.x)
+                printf("A");
+            
+            else if (simulation->grid[i][j] == 0)
                 printf(" ");
             else
                 printf("█");
@@ -55,6 +58,5 @@ void print_grid(simulation simulation){
 
 
     printf("current ant position: (%d, %d)\n", simulation->current_pos.x, simulation->current_pos.y);
-
-
 }
+
