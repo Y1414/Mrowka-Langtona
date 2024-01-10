@@ -21,8 +21,8 @@ simulation generate_grid (int width, int height){
 }
 
 
-void print_grid(simulation simulation){
-
+void print_grid(simulation simulation, int counter){
+    
     int i;
 
     printf("┌");
@@ -37,7 +37,7 @@ void print_grid(simulation simulation){
         printf("│");
         for (int j = 0;j<simulation->size.x;j++){
             if (i == simulation->current_pos.y && j == simulation->current_pos.x)
-                printf("A");
+                printf("%s", ant_obejct[simulation->grid[i][j]][simulation->direction]);
             
             else if (simulation->grid[i][j] == 0)
                 printf(" ");
@@ -57,6 +57,6 @@ void print_grid(simulation simulation){
     printf("┘");
 
 
-    printf("current ant position: (%d, %d)\n", simulation->current_pos.x, simulation->current_pos.y);
+    printf("current ant position: (%d, %d), %d\n", simulation->current_pos.x, simulation->current_pos.y,counter);
 }
 
