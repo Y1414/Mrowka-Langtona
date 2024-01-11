@@ -15,30 +15,22 @@ simulation generate_grid (int width, int height, double percentage){
     new_simulation->size.y = height;
     new_simulation->size.x = width;
 
-    int total_cells = width * height;
-    int ones_to_set = (int)(percentage * total_cells);
+    int cells_to_set = (int)(percentage * width * height);
 
     srand(time(NULL));
 
     for (int i = 0; i < height; i++) {
         new_simulation->grid[i] = malloc(width * sizeof(int));
-        for (int j = 0; j < width; j++) {
-            if (ones_to_set > 0 && rand() % total_cells < ones_to_set) {
-                new_simulation->grid[i][j] = 1;
-                ones_to_set--;
-            } else {
-                new_simulation->grid[i][j] = 0;
-            }
-            total_cells--;
-        }
+        for (int j = 0; j < width; j++) 
+            new_simulation->grid[i][j] = 0;
     }
 
-    while (ones_to_set > 0){
+    while (cells_to_set > 0){
         int i = rand()%height;
         int j = rand()%width;
         if (new_simulation->grid[i][j] == 0){
             new_simulation->grid[i][j] = 1;
-            ones_to_set--;
+            cells_to_set--;
         }
     }
 
