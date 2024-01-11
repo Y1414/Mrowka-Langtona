@@ -29,16 +29,14 @@ coordinates change_coordinates (coordinates coordinates, int direction){
     return coordinates;
 }
 
-void ant_loop (simulation simulation){
-    int i;
-    while (true){
+void ant_loop (simulation simulation, int iterations){
+    int i = 1;
+    while (iterations != 0){
+        iterations--;
         printf("\033[H");
         
-        #ifdef _WIN32
-            system("cls");
-        #else
-            system("clear");
-        #endif
+        system("clear");
+
         print_grid(simulation, i);
         i++;
 
@@ -79,5 +77,10 @@ void ant_loop (simulation simulation){
             break;
         }
         usleep(20000);
+        
+        
     }
 }
+
+
+
