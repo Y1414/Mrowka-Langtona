@@ -34,8 +34,7 @@ void ant_loop (simulation simulation, int iterations, char*filename){
     while (iterations != 0){
         iterations--;
         printf("\033[H\033[J");
-        
-        system("clear");
+
         print_grid(simulation, i);
         if (filename)
             print_to_file(simulation, filename, i);
