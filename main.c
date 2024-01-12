@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <string.h>
 #include "mrufka.h"
 
 
@@ -14,12 +15,8 @@ int main(int argc, char **argv){
     int size_y = 25;
     int i = -1;
     double percentage = 0.0;
-    
-
-    if (argc < 2){
-
-
-    }
+    char* filename = NULL;
+    FILE*in = NULL;
 
     while ((option = getopt(argc, argv, "s:i:r:f:m:n:")) !=-1){
         switch (option){
@@ -29,9 +26,11 @@ int main(int argc, char **argv){
                 break;
             // file - wczytywanie z pliku 
             case 'f' :
+                in = fopen(optarg, "r");
                 break;
             // save - plik do wypisywania  
             case 's' :
+                filename = optarg;
                 break;
             // iteracja 
             case 'i' :
@@ -66,13 +65,20 @@ int main(int argc, char **argv){
         printf("Nieprawidłowy procent!\n");
         return 1;
     }
-
-    simulation simulation = generate_grid(size_x, size_y, (double)percentage/100);
+    if (in != NULL){
+        FILE* newFile;
+        simulation simulation = generate_from_file ( in,newFile, size_x, size_y);
+        ant_loop (simulation,i, filename);
+    }
+    else{
+        simulation simulation = generate_grid(size_x, size_y, (double)percentage/100);
+        simulation->current_pos.x = (size_x/2);
+        simulation->current_pos.y = (size_y/2);
+        ant_loop (simulation,i, filename);
+    }
     
-    simulation->current_pos.x = (size_x/2);
-    simulation->current_pos.y = (size_y/2);
-    simulation->direction = 0;
 
-    ant_loop (simulation,i);
+    
+
     return 0;
 }

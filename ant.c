@@ -29,15 +29,16 @@ coordinates change_coordinates (coordinates coordinates, int direction){
     return coordinates;
 }
 
-void ant_loop (simulation simulation, int iterations){
+void ant_loop (simulation simulation, int iterations, char*filename){
     int i = 1;
     while (iterations != 0){
         iterations--;
         printf("\033[H");
         
         system("clear");
-
         print_grid(simulation, i);
+        if (filename)
+            print_to_file(simulation, filename, i);
         i++;
 
 
@@ -76,10 +77,13 @@ void ant_loop (simulation simulation, int iterations){
         if (simulation->current_pos.x >= simulation->size.x || simulation->current_pos.x < 0 || simulation->current_pos.y >= simulation->size.y ||  simulation->current_pos.y < 0){
             break;
         }
-        usleep(20000);
+        usleep(40000);
         
         
     }
+    for (int i = 0; i < simulation->size.y; i++) 
+        free(simulation->grid[i]);
+    free(simulation);
 }
 
 

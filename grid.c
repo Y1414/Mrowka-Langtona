@@ -3,9 +3,6 @@
 #include <time.h>
 #include "mrufka.h"
 
-char* ant_obejct[][4] = {{"▲", "▶", "▼", "◀"},{"△", "▷", "▽", "◁"}};
-
-
 
 simulation generate_grid (int width, int height, double percentage){
     simulation new_simulation = malloc(sizeof(simulation));
@@ -14,6 +11,7 @@ simulation generate_grid (int width, int height, double percentage){
 
     new_simulation->size.y = height;
     new_simulation->size.x = width;
+    new_simulation->direction = 0;
 
     int cells_to_set = (int)(percentage * width * height);
 
@@ -34,16 +32,12 @@ simulation generate_grid (int width, int height, double percentage){
         }
     }
 
-
-
-
-
     return new_simulation;
 }
 
 
 void print_grid(simulation simulation, int counter){
-    
+    char* ant_obejct[][4] = {{"▲", "▶", "▼", "◀"},{"△", "▷", "▽", "◁"}};
     int i;
 
     printf("┌");
