@@ -4,6 +4,9 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <errno.h>
+
 #include "mrufka.h"
 
 
@@ -17,6 +20,20 @@ int main(int argc, char **argv){
     double percentage = 0.0;
     char* filename = NULL;
     FILE*in = NULL;
+
+    if (mkdir("tmp", 0755) == -1) {
+        if (errno != EEXIST) {
+            printf("Błąd w tworzeniu folderu");
+            return 1;
+        }
+    }
+    if (mkdir("save", 0755) == -1) {
+        if (errno != EEXIST) {
+            printf("Błąd w tworzeniu folderu");
+            return 1;
+        }
+    }
+
 
     while ((option = getopt(argc, argv, "s:i:r:f:m:n:")) !=-1){
         switch (option){
