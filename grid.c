@@ -71,7 +71,6 @@ void print_grid(simulation simulation, int counter){
 
     printf("┘\n");
 
-
-    printf("current ant position: (%d, %d), Step: %d\n", simulation->current_pos.x, simulation->current_pos.y,counter);
+    printf("Pozycja mrówki: (%d, %d), Iteracja: %d\n", simulation->current_pos.x, simulation->current_pos.y,counter);
 }
 

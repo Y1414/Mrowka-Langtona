@@ -6,15 +6,15 @@
 
 #include "mrufka.h"
 
-simulation generate_from_file (FILE* in, FILE* newFile, int width, int height) {
+simulation generate_from_file (FILE* in, int width, int height) {
     setlocale(LC_ALL, "C.UTF-8");
-
+    
     char* tempfile = "tmp/temp";
 
     wint_t ant_obejct[][4] = {{L'▲', L'▶', L'▼', L'◀'},{L'△', L'▷', L'▽', L'◁'}};
-    newFile = fopen(tempfile, "w");
+    FILE* newFile= fopen(tempfile, "w");
     if (newFile == NULL) {
-        printf("Błąd tworzenia pliku\n");
+        fprintf(stderr,"Błąd tworzenia pliku\n");
         exit(1);
     }
     wint_t character;
@@ -32,8 +32,8 @@ simulation generate_from_file (FILE* in, FILE* newFile, int width, int height) {
         } else if (character == L'│'){
             walls += 1;
             if (walls == 2){
-                if (columns != width){
-                    printf("Nieprawidłowa szerokość!\n");
+                if (columns != width && width){
+                    fprintf(stderr,"Nieprawidłowa szerokość!\n");
                     fclose(newFile);
                     remove(tempfile);
                     fclose(in);
@@ -63,7 +63,7 @@ simulation generate_from_file (FILE* in, FILE* newFile, int width, int height) {
     }
 
     if (rows != height){
-        printf("Nieprawidłowa wysokość!\n");
+        fprintf(stderr,"Nieprawidłowa wysokość!\n");
         fclose(newFile);
         remove(tempfile);
         fclose(in);
@@ -82,7 +82,7 @@ simulation generate_from_file (FILE* in, FILE* newFile, int width, int height) {
     newFile = fopen(tempfile, "r");
     
     if (newFile == NULL) {
-        printf("Błąd otwierania pliku\n");
+        fprintf(stderr,"Błąd otwierania pliku\n");
         remove(tempfile);
         exit(1);
     }

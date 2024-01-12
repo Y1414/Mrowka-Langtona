@@ -23,13 +23,13 @@ int main(int argc, char **argv){
 
     if (mkdir("tmp", 0755) == -1) {
         if (errno != EEXIST) {
-            printf("Błąd w tworzeniu folderu");
+            fprintf(stderr,"Błąd w tworzeniu folderu");
             return 1;
         }
     }
     if (mkdir("save", 0755) == -1) {
         if (errno != EEXIST) {
-            printf("Błąd w tworzeniu folderu");
+            fprintf(stderr,"Błąd w tworzeniu folderu");
             return 1;
         }
     }
@@ -44,6 +44,10 @@ int main(int argc, char **argv){
             // file - wczytywanie z pliku 
             case 'f' :
                 in = fopen(optarg, "r");
+                if (in == NULL){
+                    fprintf(stderr, "Błąd w cztyaniu %s\n", optarg);
+                    return 1;
+                }
                 break;
             // save - plik do wypisywania  
             case 's' :
@@ -69,32 +73,29 @@ int main(int argc, char **argv){
         }
     }
 
-    if (size_x == 0){
-        printf("Nieprawidłowa szerokość planszy\n");
+    if (size_x <= 0){
+        fprintf(stderr,"Nieprawidłowa szerokość planszy\n");
         return 1;
     }
-    if (size_y == 0){
-        printf("Nieprawidłowa wysokość planszy\n");
+    if (size_y <= 0){
+        fprintf(stderr,"Nieprawidłowa wysokość planszy\n");
         return 1;
     }
 
     if (percentage > 100 || percentage < 0){
-        printf("Nieprawidłowy procent!\n");
+        fprintf(stderr,"Nieprawidłowy procent!\n");
         return 1;
     }
-    if (in != NULL){
-        FILE* newFile;
-        simulation simulation = generate_from_file ( in,newFile, size_x, size_y);
-        ant_loop (simulation,i, filename);
-    }
+    simulation simulation;
+    if (in != NULL)
+        simulation = generate_from_file ( in, size_x, size_y);
     else{
-        simulation simulation = generate_grid(size_x, size_y, (double)percentage/100);
+        simulation = generate_grid(size_x, size_y, (double)percentage/100);
         simulation->current_pos.x = (size_x/2);
         simulation->current_pos.y = (size_y/2);
-        ant_loop (simulation,i, filename);
     }
     
-
+    ant_loop (simulation,i, filename);
     
 
     return 0;
