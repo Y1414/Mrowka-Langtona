@@ -8,7 +8,7 @@ następnie "./mrówka" z odpowiednimi flagami:
 
 "-i" + liczba(int) - ilość iteracji mrówki 
 
-"-r" + liczba(double) - ilość % zajęcia planszy (podana liczba jest dzielona w kodzie przez 100)
+"-r" + liczba(double) - ilość % zajęcia planszy przez pola czarne (podana liczba jest dzielona w kodzie przez 100)
 
 "-f" + nazwa pliku - plik do wczytywania 
 
