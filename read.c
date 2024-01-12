@@ -6,7 +6,7 @@
 
 #include "mrufka.h"
 
-simulation generate_from_file (FILE* in, int width, int height) {
+simulation generate_from_file (FILE* in) {
     setlocale(LC_ALL, "C.UTF-8");
     
     char* tempfile = "tmp/temp";
@@ -18,7 +18,7 @@ simulation generate_from_file (FILE* in, int width, int height) {
         exit(1);
     }
     wint_t character;
-    int direction, rows = 0, columns = 0;
+    int direction, rows = 0, columns = 0, width = 0, height;
 
     int walls = 0;
     while ((character = fgetwc(in)) != WEOF) {
@@ -32,13 +32,16 @@ simulation generate_from_file (FILE* in, int width, int height) {
         } else if (character == L'│'){
             walls += 1;
             if (walls == 2){
+              
                 if (columns != width && width){
-                    fprintf(stderr,"Nieprawidłowa szerokość!\n");
+                    fprintf(stderr,"Błędny format pliku!\n");
                     fclose(newFile);
                     remove(tempfile);
                     fclose(in);
                     exit(1);
                 }
+                else
+                    width = columns;
                 
                 columns = 0;
                 rows ++;
@@ -62,14 +65,15 @@ simulation generate_from_file (FILE* in, int width, int height) {
         }
     }
 
-    if (rows != height){
+    
+    /*if (rows != height){
         fprintf(stderr,"Nieprawidłowa wysokość!\n");
         fclose(newFile);
         remove(tempfile);
         fclose(in);
         exit(1);
-    }
-    
+    }*/
+    height = rows;
 
 
     rewind(newFile);

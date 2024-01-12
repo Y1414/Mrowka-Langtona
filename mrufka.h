@@ -18,4 +18,4 @@ coordinates change_coordinates (coordinates coordinates, int direction);
 void ant_loop (simulation simulation,int iterations, char*filename);
 void print_to_file (simulation simulation, char* filename, int iteration);
 int change_to_numeric(FILE* in, FILE* newFile);
-simulation generate_from_file (FILE* in, int width, int height);
+simulation generate_from_file (FILE* in);

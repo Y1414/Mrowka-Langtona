@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
+
 #include "mrufka.h"
 
 coordinates change_coordinates (coordinates coordinates, int direction){
@@ -30,7 +31,9 @@ coordinates change_coordinates (coordinates coordinates, int direction){
 }
 
 void ant_loop (simulation simulation, int iterations, char*filename){
+    
     int i = 1;
+
     while (iterations != 0){
         iterations--;
         printf("\033[H\033[J");

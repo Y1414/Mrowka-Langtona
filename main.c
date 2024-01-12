@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <getopt.h>
-#include <string.h>
 #include <sys/stat.h>
 #include <errno.h>
 
@@ -14,7 +13,7 @@
 int main(int argc, char **argv){
 
     int option;
-    int size_x = 150;
+    int size_x = 100;
     int size_y = 25;
     int i = -1;
     double percentage = 0.0;
@@ -88,7 +87,7 @@ int main(int argc, char **argv){
     }
     simulation simulation;
     if (in != NULL)
-        simulation = generate_from_file ( in, size_x, size_y);
+        simulation = generate_from_file ( in) ;
     else{
         simulation = generate_grid(size_x, size_y, (double)percentage/100);
         simulation->current_pos.x = (size_x/2);
