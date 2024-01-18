@@ -13,3 +13,5 @@ następnie "./mrówka" z odpowiednimi flagami:
 "-f" + nazwa pliku - plik do wczytywania 
 
 "-s" + nazwa pliku - plik do zapisu 
+
+“-d” + liczba(int) z przedziału <0, 3> - wybór początkowego kierunku mrówki (0 - północ, 1 - wschód, 2 - południe, 3 - zachód)
