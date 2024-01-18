@@ -11,7 +11,7 @@ simulation generate_grid (int width, int height, double percentage){
 
     new_simulation->size.y = height;
     new_simulation->size.x = width;
-    new_simulation->direction = 0;
+    
 
     int cells_to_set = (int)(percentage * width * height);
 

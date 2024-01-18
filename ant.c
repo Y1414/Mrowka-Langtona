@@ -22,7 +22,7 @@ coordinates change_coordinates (coordinates coordinates, int direction){
         coordinates.x -=1;
         break;
     default:
-        fprintf(stderr, "Nieznany kierunek");
+        fprintf(stderr, "Nieznany kierunek!");
         exit(1);
         break;
     }
